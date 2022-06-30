@@ -26,24 +26,21 @@ def reshape_array(photo):
     print('The new shape is:',image_array.shape)
     return image_array
 
-def determine_number_photos(desired_image, n_photos):
+
+
+def new_shape(desired_image, n_photos):
     width, height = desired_image.size
     proportion = width/height
-    for i in range(int((n_photos)**(1/2))):
-        number = int((n_photos)**(1/2))-i
-        photos_for_x = number
-        photos_for_y = photos_for_x*(1/proportion)
-        if photos_for_y.is_integer():
-            print(f'You need to use {number} photos.')
-            return(desired_image)
-    shape = (int((n_photos)**(1/2)), int(int((n_photos)**(1/2))*(1/proportion) ))
-    desired_image = desired_image.resize(shape)
-    print(f'Your image was resized to {shape}.')
+    square = n_photos**(1/2)
+    x = int(square*proportion)
+    y = int(square*1/proportion)
+    print(f'The number of images you are goin to use is {(x, y)}.')
+    new_shape = (int(width/x)*x, int(height/y)*y)
+    print('New size is', new_shape)
+    return desired_image.resize(new_shape)
 
-determine_number_photos(desired_image, 999)
-
-
-#new = reshape_array(desired_image)
+print(desired_image.size)
+new_shape(desired_image, 999)
 
 
 
