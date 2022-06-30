@@ -1,5 +1,7 @@
+from attr import Attribute
 import numpy as np
 from PIL import Image
+import sys
 
 
 
@@ -30,11 +32,19 @@ def new_shape(desired_image, n_photos):
 
 def reshape_all_photos(initial_photos, shape, x, y):
     photos_in_array = []
+    n = 0
     for image in initial_photos:
+        print('Photo number:\n',n)
         n_shape = (int(shape[0]/x),int(shape[1]/y))
-        image_reshape = image.resize(n_shape)
+        try:
+            image_reshape = image.resize(n_shape)
+        except AttributeError:
+            print('meh')
+            image_reshape = Image.new("RGB", (500,500), (255, 255, 255))
         image_array = reshape_photo_to_array(image_reshape)
+        
         photos_in_array.append(image_array)
+        n +=1
     return photos_in_array
 
 def create_joined_photo(desired_photo, lst_of_photos, shape, x, y):
@@ -59,3 +69,4 @@ def save_image(image, file_name):
     final_array = final_array.astype(np.uint8)
     new_image = Image.fromarray(final_array)
     new_image.save(f'final_image/{file_name}.png')
+    print('Your image was saved!')
