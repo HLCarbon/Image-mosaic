@@ -1,2 +1,2 @@
 # Image-mosaic
- Creatinga  full image from multiple ones
+ Creating a  full image from multiple ones
