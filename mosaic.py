@@ -14,6 +14,8 @@ desired_image = Image.open(glob.glob(desired_image_path)[0])
 initial_photos = []
 for j in glob.glob(photos_path):
     for file in glob.glob(j):
+        #The deep copy allows us to use a very large of photos as the background. If you try to open 10k+ images, you will receive an error.
+        #This deep copy allows us to circunvent that.
         f = copy.deepcopy(Image.open(file))
         initial_photos.append(f)
 
