@@ -1,4 +1,3 @@
-from attr import Attribute
 import numpy as np
 from PIL import Image
 import sys
@@ -17,7 +16,7 @@ def reshape_photo_to_array(photo:Image.Image) ->np.array:
     #print('The new shape is:',image_array.shape)
     return image_array
 
-def new_shape(desired_image: Image.Image, n_photos:int) ->tuple[int,int,tuple,Image.Image]:
+def new_shape(desired_image: Image.Image, n_photos:int) -> tuple[int,int,tuple,Image.Image]:
     width, height = desired_image.size
     proportion = width/height
     square = n_photos**(1/2)
@@ -65,7 +64,7 @@ def create_photo(photo:np.array, joined_photos:np.array, proportion:float)->np.a
     return final
 
 def save_image(image:np.array, file_name:str) -> None:
-    final_array = final_array.astype(np.uint8)
+    final_array = image.astype(np.uint8)
     new_image = Image.fromarray(final_array)
-    new_image.save(f'final_image/{file_name}.png')
+    new_image.save(sys.argv[0][:-9] + f'final_image/{file_name}.png')
     print('Your image was saved!')
