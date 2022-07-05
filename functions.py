@@ -17,7 +17,7 @@ def reshape_photo_to_array(photo:Image.Image) ->np.array:
     #print('The new shape is:',image_array.shape)
     return image_array
 
-def new_shape(desired_image: Image.Image, n_photos:int) ->int,int,tuple,Image.Image:
+def new_shape(desired_image: Image.Image, n_photos:int) ->(int,int,tuple,Image.Image):
     width, height = desired_image.size
     proportion = width/height
     square = n_photos**(1/2)
