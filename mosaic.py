@@ -1,10 +1,11 @@
 import functions as fc
 import glob
+import sys
 from PIL import Image
 import copy
-photos_path = 'all_images//*'
-desired_image_path = 'desired_image//*'
 
+photos_path = sys.argv[0][:-9] + 'all_images//*'
+desired_image_path = sys.argv[0][:-9] + 'desired_image//*'
 #get desired_image
 
 desired_image = Image.open(glob.glob(desired_image_path)[0])
