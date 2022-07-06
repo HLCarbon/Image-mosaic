@@ -6,6 +6,7 @@ import sys
 
 
 def reshape_photo_to_array(photo:Image.Image) ->np.array:
+    #Converts an image into an array with the correct shape
     width, height = photo.size
     photo = photo.convert('RGB')
     photo2d_array = np.array(photo.getdata())
@@ -17,6 +18,7 @@ def reshape_photo_to_array(photo:Image.Image) ->np.array:
     return image_array
 
 def new_shape(desired_image: Image.Image, n_photos:int) -> tuple[int,int,tuple,Image.Image]:
+    #Reshapes an image so it can fit as many small photos as possible
     width, height = desired_image.size
     proportion = width/height
     square = n_photos**(1/2)
@@ -30,6 +32,7 @@ def new_shape(desired_image: Image.Image, n_photos:int) -> tuple[int,int,tuple,I
 
 
 def reshape_all_photos(initial_photos:list, shape:tuple, x:int, y:int)-> np.array:
+    #Reshapes all photos so they can fit in a big photo ith a size of "shape"
     photos_in_array = []
     n = 0
     for image in initial_photos:
@@ -46,7 +49,8 @@ def reshape_all_photos(initial_photos:list, shape:tuple, x:int, y:int)-> np.arra
         n +=1
     return np.array(photos_in_array)
 
-def create_joined_photo(desired_photo:Image.Image, array_of_photos:np.array, shape:tuple, x:int, y:int)->np.array:
+def create_joined_photo(desired_photo:np.array, array_of_photos:np.array, shape:tuple, x:int, y:int)->np.array:
+    #joins all small photos into an image with the size of the desired_photo
 
     n_for_x = int(shape[0]/x)
     n_for_y = int(shape[1]/y)
@@ -60,10 +64,12 @@ def create_joined_photo(desired_photo:Image.Image, array_of_photos:np.array, sha
     return new_photo
 
 def create_photo(photo:np.array, joined_photos:np.array, proportion:float)->np.array:
+    #unites 2 photos in the given proportion
     final = photo*proportion + joined_photos*(1-proportion)
     return final
 
 def save_image(image:np.array, file_name:str) -> None:
+    #saves the images to the folder 'final_iamge'
     final_array = image.astype(np.uint8)
     new_image = Image.fromarray(final_array)
     new_image.save(sys.argv[0][:-9] + f'final_image/{file_name}.png')
